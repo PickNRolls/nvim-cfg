@@ -11,21 +11,78 @@ o.shiftwidth = 2
 require("config.lazy")
 require("mason").setup({
   ui = {
-          icons = {
-              package_installed = "✓",
-              package_pending = "➜",
-              package_uninstalled = "✗"
-          }
-      }
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗",
+    },
+  },
 })
 
 require("mason-lspconfig").setup({
-
+  ensure_installed = {
+    "lua_ls",
+    "gopls",
+    "ts_ls",
+  },
 })
 
-require('nvim-treesitter.configs').setup({
+require("mason-lspconfig").setup_handlers({
+  function(server_name)
+    require("lspconfig")[server_name].setup({})
+  end,
+
+  ["lua_ls"] = function()
+    require("lspconfig").lua_ls.setup({
+      capabilities = require('cmp_nvim_lsp').default_capabilities(),
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = {
+              "vim",
+              "require",
+            },
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
+        },
+      },
+    })
+  end,
+
+  ["gopls"] = function()
+    require("lspconfig").gopls.setup({
+      capabilities = require('cmp_nvim_lsp').default_capabilities(),
+      settings = {
+        gopls = {
+          usePlaceholders = true,
+        }
+      }
+    })
+  end
+})
+
+require("nvim-treesitter.configs").setup({
   -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go", "typescript", "json", "tsx", "javascript", "sql", "css", "html" },
+  ensure_installed = {
+    "c",
+    "lua",
+    "vim",
+    "vimdoc",
+    "query",
+    "markdown",
+    "markdown_inline",
+    "go",
+    "typescript",
+    "json",
+    "tsx",
+    "javascript",
+    "sql",
+    "css",
+    "html",
+  },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = true,
@@ -36,4 +93,19 @@ require('nvim-treesitter.configs').setup({
   },
 })
 
+require("neo-tree").setup({
+  window = {
+    width = 30,
+    auto_expand_width = true,
+  },
+  event_handlers = {
+    {
+      event = "file_open_requested",
+      handler = function()
+        require("neo-tree.command").execute({ action = "close" })
+      end,
+    },
+  },
+})
 
+require("keymaps")
