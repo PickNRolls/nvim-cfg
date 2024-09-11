@@ -1,12 +1,16 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+
 local o = vim.o
 
 o.expandtab = true
 o.smartindent = true
 o.tabstop = 2
 o.shiftwidth = 2
+o.number = true
+o.numberwidth = 2
+o.signcolumn = "yes:1"
 
 require("config.lazy")
 require("mason").setup({
@@ -91,6 +95,23 @@ require("nvim-treesitter.configs").setup({
     enable = true,
     additional_vim_regex_highlighting = false,
   },
+
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        ["af"] = "@call.outer",
+        ["if"] = "@call.inner",
+
+        ["aF"] = "@function.outer",
+        ["iF"] = "@function.inner",
+
+        ["aa"] = "@parameter.outer",
+        ["ia"] = "@parameter.inner",
+      }
+    }  
+  }
 })
 
 require("neo-tree").setup({
