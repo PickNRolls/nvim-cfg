@@ -109,6 +109,9 @@ require("nvim-treesitter.configs").setup({
 
         ["aa"] = "@parameter.outer",
         ["ia"] = "@parameter.inner",
+
+        ["ac"] = "@conditional.outer",
+        ["ic"] = "@conditional.inner",
       }
     }  
   }
