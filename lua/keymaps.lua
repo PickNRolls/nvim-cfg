@@ -22,7 +22,7 @@ end, {
 })
 
 vim.keymap.set("n", "gd", function()
-  vim.lsp.buf.definition()
+  telescope.lsp_definitions()
 end, { desc = "Go to definition" })
 
 vim.keymap.set(
@@ -33,5 +33,5 @@ vim.keymap.set(
 )
 
 vim.keymap.set("n", "<leader>lr", function()
-  vim.cmd("Trouble lsp toggle focus=true win = { position = right, size = 70 }")
-end, { desc = "LSP Definitions / references / ..." })
+  telescope.lsp_references()
+end, { desc = "Show LSP References" })
