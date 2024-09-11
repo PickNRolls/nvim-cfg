@@ -186,10 +186,18 @@ return {
           ["<c-e>"] = cmp.mapping.abort(),
           ["<cr>"] = cmp.mapping.confirm(),
           ["<tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
+            if luasnip.expandable() then
+              luasnip.expand()
+            elseif cmp.visible() then
+              if #cmp.get_entries() == 1 then
+                if luasnip.expand_or_jumpable() then
+                  luasnip.expand_or_jump()
+                else
+                  cmp.confirm()
+                end
+              else
+                cmp.select_next_item()
+              end
             else
               fallback()
             end

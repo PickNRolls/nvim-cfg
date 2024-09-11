@@ -35,3 +35,24 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader>lr", function()
   telescope.lsp_references()
 end, { desc = "Show LSP References" })
+
+local ls = require("luasnip")
+vim.keymap.set({ "s" }, "<tab>", function()
+  if ls.expand_or_jumpable() then
+    ls.expand_or_jump()
+  end
+end, { silent = true, noremap = true })
+-- Не знаю как замапить через lua, при этом не сломав tab в insert mode
+vim.cmd("imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'")
+
+vim.keymap.set({ "i", "s" }, "<s-tab>", function()
+  if ls.jumpable(-1) then
+    ls.jump(-1)
+  end
+end, { silent = true, noremap = true })
+
+vim.keymap.set({ "i", "s" }, "<c-e>", function()
+  if ls.choice_active() then
+    ls.change_choice(1)
+  end
+end, { silent = true })
