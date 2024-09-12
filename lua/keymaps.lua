@@ -90,3 +90,5 @@ vim.keymap.set({ "n", "v", "s" }, "<c-d>", function()
     duration = scroll_duration,
   })
 end)
+
+vim.keymap.set("n", "<leader>pl", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
