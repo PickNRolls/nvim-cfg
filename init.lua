@@ -134,4 +134,17 @@ require("neo-tree").setup({
 
 require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})
 
+require('lualine').setup({
+  options = {
+    globalstatus = true,
+  },
+  sections = {
+    lualine_b = {},
+    lualine_x = {
+      "lsp_progress",
+      "diagnostics"
+    }
+  },
+})
+
 require("keymaps")

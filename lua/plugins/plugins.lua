@@ -249,4 +249,9 @@ return {
     opts = {}, -- for default options, refer to the configuration section for custom setup.
     cmd = "Trouble",
   },
+
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons", "arkav/lualine-lsp-progress" },
+  },
 }
