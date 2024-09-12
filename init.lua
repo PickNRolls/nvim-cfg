@@ -100,26 +100,6 @@ require("nvim-treesitter.configs").setup({
     enable = true,
     additional_vim_regex_highlighting = false,
   },
-
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ["af"] = "@call.outer",
-        ["if"] = "@call.inner",
-
-        ["aF"] = "@function.outer",
-        ["iF"] = "@function.inner",
-
-        ["aa"] = "@parameter.outer",
-        ["ia"] = "@parameter.inner",
-
-        ["ac"] = "@conditional.outer",
-        ["ic"] = "@conditional.inner",
-      },
-    },
-  },
 })
 
 require("neo-tree").setup({
@@ -163,6 +143,16 @@ require("nvim-ts-autotag").setup({
     enable_close = true,         -- Auto close tags
     enable_rename = true,        -- Auto rename pairs of tags
     enable_close_on_slash = false, -- Auto close on trailing </
+  },
+})
+
+local spec_treesitter = require("mini.ai").gen_spec.treesitter
+require("mini.ai").setup({
+  custom_textobjects = {
+    f = spec_treesitter({ a = "@call.outer", i = "@call.inner" }),
+    F = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
+    a = spec_treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
+    c = spec_treesitter({ a = "@conditional.outer", i = "@conditional.inner" }),
   },
 })
 

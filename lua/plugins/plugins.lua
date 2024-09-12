@@ -291,4 +291,9 @@ return {
       require("neoscroll").setup({})
     end,
   },
+
+  {
+    "echasnovski/mini.nvim",
+    version = "*",
+  },
 }
