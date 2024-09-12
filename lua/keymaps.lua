@@ -62,9 +62,6 @@ vim.keymap.set({ "i", "s" }, "<c-e>", function()
   end
 end, { silent = true })
 
-local delcurbuf = function()
-  vim.cmd("bdelete")
-end
 vim.keymap.set("n", "<tab>", "<cmd>bnext<cr>", { noremap = true })
 vim.keymap.set("n", "<s-tab>", "<cmd>bprevious<cr>", { noremap = true })
 vim.keymap.set("n", "<leader>c", function()
@@ -73,11 +70,23 @@ vim.keymap.set("n", "<leader>c", function()
     local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
     if choice == 1 then -- Yes
       vim.cmd.write()
-      delcurbuf()
-    elseif choice == 2 then -- No
-      return
     end
-  else
-    delcurbuf()
   end
+
+  vim.cmd("bdelete!")
 end, { desc = "Save then Close buffer" })
+
+local neoscroll = require("neoscroll")
+local scroll_duration = 75
+vim.keymap.set({ "n", "v", "s" }, "<c-u>", function()
+  neoscroll.scroll(-vim.wo.scroll, {
+    move_cursor = true,
+    duration = scroll_duration,
+  })
+end)
+vim.keymap.set({ "n", "v", "s" }, "<c-d>", function()
+  neoscroll.scroll(vim.wo.scroll, {
+    move_cursor = true,
+    duration = scroll_duration,
+  })
+end)
