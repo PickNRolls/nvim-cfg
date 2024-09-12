@@ -294,4 +294,9 @@ return {
     "axkirillov/hbac.nvim",
     config = true,
   },
+
+  {
+    "ggandor/leap.nvim",
+    lazy = false,
+  }
 }

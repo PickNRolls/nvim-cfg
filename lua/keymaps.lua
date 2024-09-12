@@ -92,3 +92,5 @@ vim.keymap.set({ "n", "v", "s" }, "<c-d>", function()
 end)
 
 vim.keymap.set("n", "<leader>pl", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
+
+vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')

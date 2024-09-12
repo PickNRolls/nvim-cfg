@@ -175,4 +175,7 @@ require("hbac").setup({
   },
 })
 
+local leap = require('leap')
+leap.opts.equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' }
+
 require("keymaps")
