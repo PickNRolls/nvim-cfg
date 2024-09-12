@@ -1,7 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-
 local o = vim.o
 
 o.expandtab = true
@@ -12,7 +11,13 @@ o.number = true
 o.numberwidth = 2
 o.signcolumn = "yes:1"
 
+vim.opt.termguicolors = true
+vim.o.cmdheight = 0
+
 require("config.lazy")
+
+vim.notify = require("notify")
+
 require("mason").setup({
   ui = {
     icons = {
@@ -38,7 +43,7 @@ require("mason-lspconfig").setup_handlers({
 
   ["lua_ls"] = function()
     require("lspconfig").lua_ls.setup({
-      capabilities = require('cmp_nvim_lsp').default_capabilities(),
+      capabilities = require("cmp_nvim_lsp").default_capabilities(),
       settings = {
         Lua = {
           diagnostics = {
@@ -58,14 +63,14 @@ require("mason-lspconfig").setup_handlers({
 
   ["gopls"] = function()
     require("lspconfig").gopls.setup({
-      capabilities = require('cmp_nvim_lsp').default_capabilities(),
+      capabilities = require("cmp_nvim_lsp").default_capabilities(),
       settings = {
         gopls = {
           usePlaceholders = true,
-        }
-      }
+        },
+      },
     })
-  end
+  end,
 })
 
 require("nvim-treesitter.configs").setup({
@@ -112,9 +117,9 @@ require("nvim-treesitter.configs").setup({
 
         ["ac"] = "@conditional.outer",
         ["ic"] = "@conditional.inner",
-      }
-    }  
-  }
+      },
+    },
+  },
 })
 
 require("neo-tree").setup({
@@ -132,9 +137,9 @@ require("neo-tree").setup({
   },
 })
 
-require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})
+require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/LuaSnip/" })
 
-require('lualine').setup({
+require("lualine").setup({
   options = {
     globalstatus = true,
   },
@@ -142,8 +147,14 @@ require('lualine').setup({
     lualine_b = {},
     lualine_x = {
       "lsp_progress",
-      "diagnostics"
-    }
+      "diagnostics",
+    },
+  },
+})
+
+require("bufferline").setup({
+  options = {
+    diagnostics = "nvim_lsp",
   },
 })
 
