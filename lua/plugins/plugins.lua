@@ -206,7 +206,7 @@ return {
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "path" },
-          { name = "buffer" },
+          -- { name = "buffer" },
           { name = "luasnip" },
         }),
       })
@@ -288,7 +288,7 @@ return {
     version = "*",
   },
 
-  { 'echasnovski/mini.nvim', version = '*' },
+  { "echasnovski/mini.nvim",  version = "*" },
 
   {
     "axkirillov/hbac.nvim",
@@ -298,5 +298,19 @@ return {
   {
     "ggandor/leap.nvim",
     lazy = false,
-  }
+  },
+
+  {
+    "echasnovski/mini.indentscope",
+    version = "*",
+    config = function()
+      -- vim.cmd("au FileType * if index(['lua', 'python'], &ft) < 0 | lua vim.b.miniindentscope_disable=true | endif")
+      require("mini.indentscope").setup({})
+    end,
+  },
+
+  {
+    "stevearc/dressing.nvim",
+    opts = {},
+  },
 }

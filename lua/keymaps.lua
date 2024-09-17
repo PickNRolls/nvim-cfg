@@ -15,6 +15,12 @@ vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope cwd=.<cr>", { desc = "Find
 vim.keymap.set("n", "<leader>li", "<cmd>LspInfo<cr>", {
   desc = "Lsp info",
 })
+vim.keymap.set("n", "<leader>la", function()
+  vim.lsp.buf.code_action()
+end, { desc = "LSP Code action"})
+vim.keymap.set("n", "<leader>ld", function()
+  vim.diagnostic.open_float()
+end, { desc = "LSP Diagnostic under point"})
 
 vim.keymap.set("n", "<leader>lf", function()
   vim.lsp.buf.format()
@@ -25,6 +31,9 @@ end, {
 vim.keymap.set("n", "<leader>lR", function()
   telescope.lsp_references()
 end, { desc = "Show LSP References" })
+vim.keymap.set("n", "<leader>lD", function()
+  telescope.diagnostics()
+end, { desc = "Show LSP Diagnostics" })
 
 vim.keymap.set("n", "<leader>lr", function()
   vim.lsp.buf.rename()
