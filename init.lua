@@ -119,12 +119,25 @@ require("neo-tree").setup({
 
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/LuaSnip/" })
 
+local function show_macro_recording()
+    local recording_register = vim.fn.reg_recording()
+    if recording_register == "" then
+        return ""
+    else
+        return "Recording @" .. recording_register
+    end
+end
 require("lualine").setup({
   options = {
     globalstatus = true,
   },
   sections = {
-    lualine_b = {},
+    lualine_b = {
+      {
+        "macro-recording",
+        fmt = show_macro_recording,
+      }
+    },
     lualine_x = {
       "lsp_progress",
       "diagnostics",
@@ -179,3 +192,4 @@ local leap = require('leap')
 leap.opts.equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' }
 
 require("keymaps")
+require("autocmd")
